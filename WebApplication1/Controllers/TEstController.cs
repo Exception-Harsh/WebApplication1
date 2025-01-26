@@ -45,13 +45,13 @@ namespace WebApplication1.Controllers
         }
 
         [HttpPost]
-        public DemoResponse TestCreate(Demo obj)
+        public DemoResponse TestCreate()
         {
-            obj = new Demo();
-            obj.Id = '8';
+            Demo obj = new Demo();
+            obj.Id = 8;
             obj.Name = "Arbour";
             obj.JoiningDate = "2025-01-30";
-           
+
             DemoResponse response = new DemoResponse { IsSuccess = true };
             try
             {
@@ -62,7 +62,7 @@ namespace WebApplication1.Controllers
 
                 command.Parameters.Add(new OracleParameter(":id", obj.Id));
                 command.Parameters.Add(new OracleParameter(":name", obj.Name));
-                command.Parameters.Add(new OracleParameter(":joiningDate", obj.JoiningDate));
+                command.Parameters.Add(new OracleParameter(":joiningDate", Convert.ToDateTime(obj.JoiningDate)));
 
                 int affectedrow = command.ExecuteNonQuery();
                 if (affectedrow == 1)
